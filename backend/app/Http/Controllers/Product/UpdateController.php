@@ -23,19 +23,19 @@ class UpdateController extends Controller
 
         $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
 
+        $product->update($data);
+
         foreach ($productImages as $productImage) {
             $countCurrentImage = ProductImages::where('product_id', $product->id)->count();
 
             if ($countCurrentImage > 3) continue;
 
             $filePath = Storage::disk('public')->put('/images', $productImage);
-            ProductImages::create([
+            ProductImages::updateOrCreate([
                 'product_id' => $product->id,
                 'file_path' => $filePath,
             ]);
         }
-
-        $product->update($data);
 
         $product->colors()->sync($colorsIds);
         $product->tags()->sync($tagsIds);

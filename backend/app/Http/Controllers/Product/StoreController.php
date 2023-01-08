@@ -28,24 +28,10 @@ class StoreController extends Controller
             'title' => $data['title']
         ], $data);
 
-        foreach ($tagsIds as $tagsId) {
-            ProductTag::firstOrCreate([
-                'product_id' => $product->id,
-                'tag_id' => $tagsId
-            ]);
-        }
-
-        foreach ($colorsIds as $colorsId) {
-            ColorProduct::firstOrCreate([
-                'product_id' => $product->id,
-                'color_id' => $colorsId
-            ]);
-        }
-
         foreach ($productImages as $productImage) {
-            $currentImages = ProductImages::where('product_id', $product->id)->get();
+            $countCurrentImages = ProductImages::where('product_id', $product->id)->count();
 
-            if (count($currentImages) > 3) continue;
+            if ($countCurrentImages > 3) continue;
 
             $filePath = Storage::disk('public')->put('/images', $productImage);
             ProductImages::create([
@@ -53,6 +39,9 @@ class StoreController extends Controller
                 'file_path' => $filePath,
             ]);
         }
+
+        $product->colors()->sync($colorsIds);
+        $product->tags()->sync($tagsIds);
 
         return redirect()->route('product.index');
     }
