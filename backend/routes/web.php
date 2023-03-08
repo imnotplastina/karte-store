@@ -20,10 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return phpinfo();
-//});
-
 Route::get('/', \App\Http\Controllers\Main\IndexController::class)->name('main.index');
 
 Route::group(['prefix' => 'categories'], function () {

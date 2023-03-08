@@ -8,7 +8,7 @@ use App\Models\Product;
 
 class ShowController extends Controller
 {
-    public function __invoke(Product $product)
+    public function __invoke(Product $product): ProductResource
     {
         return new ProductResource($product);
     }

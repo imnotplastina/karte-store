@@ -15,23 +15,29 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
 
             $table->string('title');
             $table->text('description');
             $table->text('content');
             $table->integer('price');
             $table->integer('count');
-            $table->string('preview_image');
 
-            $table->boolean('is_published')
-            ->default(true);
+            $table->boolean('is_published')->default(true);
 
             $table->foreignId('category_id')
                 ->nullable()
                 ->index()
-                ->constrained('categories');
+                ->constrained();
 
-            $table->timestamps();
+            $table->foreignId('group_id')
+                ->nullable()
+                ->index()
+                ->constrained();
+
+            $table->softDeletes();
+
+            $table->string('preview_image');
         });
     }
 

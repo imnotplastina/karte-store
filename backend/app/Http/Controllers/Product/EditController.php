@@ -7,10 +7,11 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Tag;
+use Illuminate\Contracts\View\View;
 
 class EditController extends Controller
 {
-    public function __invoke(Product $product)
+    public function __invoke(Product $product): View
     {
         $categories = Category::all();
         $tags = Tag::all();

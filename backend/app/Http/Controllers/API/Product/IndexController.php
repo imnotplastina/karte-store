@@ -7,10 +7,15 @@ use App\Http\Filters\ProductFilter;
 use App\Http\Requests\API\Product\IndexRequest;
 use App\Http\Resources\Product\IndexProductResource;
 use App\Models\Product;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IndexController extends Controller
 {
-    public function __invoke(IndexRequest $request)
+    /**
+     * @throws BindingResolutionException
+     */
+    public function __invoke(IndexRequest $request): AnonymousResourceCollection
     {
         $data = $request->validated();
 

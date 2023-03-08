@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateRequest;
-use App\Models\ColorProduct;
 use App\Models\Product;
 use App\Models\ProductImages;
-use App\Models\ProductTag;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateController extends Controller
 {
-    public function __invoke(UpdateRequest $request, Product $product)
+    public function __invoke(UpdateRequest $request, Product $product): View
     {
         $data = $request->validated();
 
         $productImages = $data['product_images'];
-        $tagsIds = $data['tags'];
-        $colorsIds = $data['colors'];
+        $tagsIds       = $data['tags'];
+        $colorsIds     = $data['colors'];
+
         unset($data['tags'], $data['colors'], $data['product_images']);
 
         $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
@@ -33,7 +33,7 @@ class UpdateController extends Controller
             $filePath = Storage::disk('public')->put('/images', $productImage);
             ProductImages::updateOrCreate([
                 'product_id' => $product->id,
-                'file_path' => $filePath,
+                'file_path'  => $filePath,
             ]);
         }
 
