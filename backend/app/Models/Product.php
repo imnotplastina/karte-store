@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Filterable;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Carbon;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 /**
  * App\Models\Product
@@ -60,23 +62,25 @@ use Illuminate\Support\Carbon;
  * @method static orderBy(string $string, string $string1)
  * @method static firstOrCreate(array $array, mixed $data)
  * @method static where(string $string, mixed $group_id)
+ * @method static factory(int $int)
  */
 class Product extends Model
 {
+    use HasFactory;
     use SoftDeletes;
     use Filterable;
 
     protected $table = 'products';
     protected $guarded = false;
 
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
-
     public function getImageUrlAttribute(): Application|string|UrlGenerator|\Illuminate\Contracts\Foundation\Application
     {
         return url('storage/' . $this->preview_image);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function colors(): BelongsToMany
