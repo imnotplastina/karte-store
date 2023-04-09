@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <main class="overflow-hidden ">
       <!--Start Breadcrumb Style2-->
@@ -344,11 +344,9 @@
 </template>
 
 <script>
-import MySelect from "@/components/UI/MySelect.vue";
 
 export default {
   name: "Index",
-  components: {MySelect},
 
   mounted() {
     $(document).trigger('changed')

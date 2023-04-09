@@ -1309,7 +1309,7 @@
 
 <script>
 export default {
-  name: "Index",
+  name: "Show",
 
   mounted() {
     $(document).trigger('changed')
