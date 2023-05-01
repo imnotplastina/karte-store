@@ -142,16 +142,7 @@
                     <div class="left-box wow fadeInUp animated">
                       <p>Showing 1–12 of 50 Results</p>
                     </div>
-                    <div
-                        class="right-box justify-content-md-between justify-content-center wow fadeInUp animated">
-                      <div class="short-by">
-                        <div class="select-box">
-                          <my-select
-                              v-model="selectedSort"
-                              :options="sortOptions"
-                          />
-                        </div>
-                      </div>
+                    <div class="right-box justify-content-md-between justify-content-center wow fadeInUp animated">
                       <div class="product-view-style d-flex justify-content-md-between justify-content-center">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                           <li class="nav-item" role="presentation">
