@@ -355,11 +355,6 @@ export default {
       tags: [],
       prices: [],
       pagination: [],
-      selectedSort: '',
-      sortOptions: [
-        {value: 'price', name: 'Price, low to high'},
-        {value: 'title', name: 'Alphabetically, A-Z'}
-      ],
     }
   },
 
@@ -477,20 +472,6 @@ export default {
       $(document).trigger('changed')
     })
     },
-  },
-
-  watch: {
-    selectedSort(newValue) {
-      if (newValue === "price") {
-        this.products.sort( (a, b) => {
-          return a[newValue] - b[newValue];
-        })
-      } else {
-        this.products.sort( (a, b) => {
-          return a[newValue]?.toString().localeCompare(b[newValue])
-        })
-      }
-    }
   },
 }
 </script>
