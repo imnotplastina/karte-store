@@ -142,16 +142,7 @@
                     <div class="left-box wow fadeInUp animated">
                       <p>Showing 1–12 of 50 Results</p>
                     </div>
-                    <div
-                        class="right-box justify-content-md-between justify-content-center wow fadeInUp animated">
-                      <div class="short-by">
-                        <div class="select-box">
-                          <my-select
-                              v-model="selectedSort"
-                              :options="sortOptions"
-                          />
-                        </div>
-                      </div>
+                    <div class="right-box justify-content-md-between justify-content-center wow fadeInUp animated">
                       <div class="product-view-style d-flex justify-content-md-between justify-content-center">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                           <li class="nav-item" role="presentation">
@@ -364,11 +355,6 @@ export default {
       tags: [],
       prices: [],
       pagination: [],
-      selectedSort: '',
-      sortOptions: [
-        {value: 'price', name: 'Price, low to high'},
-        {value: 'title', name: 'Alphabetically, A-Z'}
-      ],
     }
   },
 
@@ -486,20 +472,6 @@ export default {
       $(document).trigger('changed')
     })
     },
-  },
-
-  watch: {
-    selectedSort(newValue) {
-      if (newValue === "price") {
-        this.products.sort( (a, b) => {
-          return a[newValue] - b[newValue];
-        })
-      } else {
-        this.products.sort( (a, b) => {
-          return a[newValue]?.toString().localeCompare(b[newValue])
-        })
-      }
-    }
   },
 }
 </script>
