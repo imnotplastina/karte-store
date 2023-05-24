@@ -10,12 +10,12 @@ use Illuminate\Contracts\View\View;
 
 class UpdateController extends Controller
 {
-    public function __invoke(UpdateRequest $request, Product $product, ProductService $service): View
+    public function __invoke(UpdateRequest $request, Product $product, ProductService $productService): View
     {
         $validated = $request->validated();
 
-        $updatedProduct = $service->updateProduct($product, $validated);
-        $service->uploadImages($updatedProduct, $validated);
+        $updatedProduct = $productService->updateProduct($product, $validated);
+        $productService->uploadProductImages($updatedProduct, $validated['product_images']);
 
         return view('product.show', compact('product'));
     }

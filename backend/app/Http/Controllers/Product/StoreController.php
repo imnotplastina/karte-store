@@ -9,12 +9,12 @@ use Illuminate\Http\RedirectResponse;
 
 class StoreController extends Controller
 {
-    public function __invoke(StoreRequest $request, ProductService $service): RedirectResponse
+    public function __invoke(StoreRequest $request, ProductService $productService): RedirectResponse
     {
         $validated = $request->validated();
 
-        $createdProduct = $service->createProduct($validated);
-        $service->uploadImages($createdProduct, $validated);
+        $createdProduct = $productService->createProduct($validated);
+        $productService->uploadProductImages($createdProduct, $validated['product_images']);
 
         return redirect()->route('product.index');
     }
